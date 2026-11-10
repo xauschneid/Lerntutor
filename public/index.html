@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lerntutor BWL</title>
+  <meta name="description" content="BWL üben mit KI-Rückmeldung: 10 Missionen rund um die SmartBike GmbH.">
+  <meta name="theme-color" content="#f6f4ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16171a" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5f4a'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='17' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a href="#/" class="brand">
+        <span class="brand-name">Lerntutor</span>
+        <span class="brand-sub">BWL · SmartBike GmbH</span>
+      </a>
+      <nav class="nav" aria-label="Hauptnavigation">
+        <a href="#/" data-nav="missions">Missionen</a>
+        <a href="#/chat" data-nav="chat">Tutor fragen</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="app" class="wrap" tabindex="-1"></main>
+
+  <dialog id="pw-dialog" class="pw">
+    <form method="dialog" id="pw-form">
+      <h2>Passwort</h2>
+      <p>Der Tutor ist geschützt. Gib das Passwort ein, das du bekommen hast.</p>
+      <input id="pw-input" type="password" autocomplete="current-password" required aria-label="Passwort">
+      <div class="row">
+        <button type="submit" class="btn primary">Weiter</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

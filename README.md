@@ -1,16 +1,28 @@
 # Lerntutor
 
-DeepTutor 1.7.2 mit einer Wissensdatenbank zum BWL-Arbeitsblatt der SmartBike GmbH.
+Web-App zum BWL-Üben mit der SmartBike GmbH: 10 Missionen aus dem Arbeitsblatt,
+KI-Rückmeldung auf deine Antworten und ein Tutor-Chat. Läuft komplett auf Netlify,
+die KI kommt von Groq.
 
-## Inhalt
-- `BWL_SmartBike_Arbeitsblatt.pdf` – Arbeitsblatt mit 10 Missionen
-- `BWL_SmartBike_Musterloesung.md` – Musterlösung mit typischen Fehlern
+## Aufbau
+- `public/` – Oberfläche (HTML, CSS, JS ohne Build-Schritt)
+- `public/missions.js` – Lernstoff mit Musterlösungen (wird von Seite und Function genutzt)
+- `netlify/functions/tutor.mjs` – `/api/tutor`: Antwort prüfen und Chat über Groq
+- `BWL_SmartBike_Musterloesung.md`, `BWL_SmartBike_Arbeitsblatt.pdf` – Original-Lernstoff
 
-## Starten
+## Netlify einrichten
+1. Repo in Netlify importieren (Build-Einstellungen kommen aus `netlify.toml`).
+2. Unter *Site configuration → Environment variables* setzen:
+   - `GROQ_API_KEY` – dein Key von console.groq.com (Pflicht)
+   - `APP_PASSWORD` – Passwort für die App (empfohlen, sonst kann jeder deinen Key verbrauchen)
+   - `GROQ_MODEL` – optional, Standard `openai/gpt-oss-120b`
+3. Neu deployen.
+
+## Lokal testen
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
-python -m pip install -U "deeptutor[full,claude-code]"
-deeptutor start
+npm run dev            # Testmodus ohne KI auf http://localhost:8888
+GROQ_API_KEY=... node dev-server.mjs   # mit echter KI
 ```
-Danach in den Einstellungen ein Sprachmodell und ein Embedding-Modell eintragen und
-eine Wissensdatenbank „BWL-SmartBike“ mit den beiden Dateien anlegen.
+
+## Neuen Lernstoff hinzufügen
+Missionen in `public/missions.js` ergänzen – Seite und Tutor übernehmen sie automatisch.
