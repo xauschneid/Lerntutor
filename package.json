@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "MOCK_AI=1 node dev-server.mjs"
+    "dev": "node dev-server.mjs"
   },
   "engines": {
     "node": ">=20"

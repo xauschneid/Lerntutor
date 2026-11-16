@@ -1,7 +1,13 @@
-// Lernstoff: BWL-Arbeitsblatt SmartBike GmbH.
-// Wird vom Frontend und von der Netlify Function gemeinsam genutzt.
-
-export const SUBJECT = "BWL – SmartBike GmbH";
+// Lernstoff: BWL-Arbeitsblatt SmartBike GmbH – als automatisch prüfbare Aufgaben.
+//
+// Aufgabentypen:
+//   choice  – genau eine Antwort richtig (options, correct: Index)
+//   multi   – mehrere richtig (options, correct: [Indizes])
+//   number  – Zahl eingeben (answer, unit, tol = erlaubte Abweichung)
+//   numbers – mehrere Zahlen (fields: [{label, answer, unit, tol}])
+//   match   – zuordnen (pairs: [[links, rechts]]), rechte Seite wird gemischt angeboten
+//   order   – Reihenfolge (items in richtiger Reihenfolge)
+// "explain" wird erst nach dem Bestehen angezeigt.
 
 export const MISSIONS = [
   {
@@ -9,21 +15,46 @@ export const MISSIONS = [
     title: "Die neue Maschine",
     topic: "Abschreibung",
     situation:
-      "Die SmartBike GmbH kauft eine CNC-Maschine für 120.000 €. Der Gewinn soll aber nicht in diesem Jahr wegen der Maschine stark einbrechen. Die Maschine soll 10 Jahre genutzt werden.",
+      "Die SmartBike GmbH kauft eine CNC-Maschine für 120.000 €. Sie soll 10 Jahre genutzt werden. Der Gewinn soll nicht in diesem Jahr wegen der Maschine stark einbrechen.",
     tasks: [
-      { q: "Welcher BWL-Begriff passt zu dieser Situation?", a: "Abschreibung (AfA)." },
       {
-        q: "Erkläre den Begriff in eigenen Worten.",
-        a: "Die Maschine verliert durch Nutzung an Wert. Die Anschaffungskosten werden deshalb auf die Nutzungsdauer verteilt und jedes Jahr anteilig als Aufwand gebucht.",
+        type: "choice",
+        q: "Welcher BWL-Begriff passt zu dieser Situation?",
+        options: ["Abschreibung", "Inventur", "Deckungsbeitrag", "Liquidität"],
+        correct: 0,
+        explain: "Abschreibung (AfA): Der Wertverlust der Maschine wird über die Nutzungsdauer verteilt.",
       },
       {
-        q: "Warum wird die Maschine nicht vollständig als Aufwand des ersten Jahres behandelt?",
-        a: "Die Maschine wird 10 Jahre genutzt und trägt jedes Jahr zum Unternehmenserfolg bei. Der Aufwand wird auf die Jahre der Nutzung verteilt – sonst würde der Gewinn im ersten Jahr stark einbrechen.",
+        type: "choice",
+        q: "Was bedeutet Abschreibung?",
+        options: [
+          "Die Anschaffungskosten werden auf die Nutzungsdauer verteilt und jedes Jahr anteilig als Aufwand gebucht.",
+          "Der Kaufpreis wird sofort komplett als Aufwand gebucht.",
+          "Die Maschine wird nach der Nutzung verkauft und der Erlös als Gewinn gebucht.",
+          "Die Maschine wird jedes Jahr neu bewertet, damit der Gewinn steigt.",
+        ],
+        correct: 0,
+        explain: "Die Maschine verliert durch Nutzung an Wert. Deshalb wird jedes Jahr ein Teil der Anschaffungskosten als Aufwand gebucht.",
       },
       {
-        q: "Berechne bei linearer Abschreibung die jährliche Abschreibung.",
-        a: "120.000 € : 10 Jahre = 12.000 € pro Jahr.",
-        mistake: "120.000 : 12.000 = 10 Jahre rechnet rückwärts und liefert nur die bekannte Nutzungsdauer.",
+        type: "choice",
+        q: "Warum wird die Maschine nicht komplett als Aufwand des ersten Jahres behandelt?",
+        options: [
+          "Weil sie 10 Jahre genutzt wird und der Aufwand diesen Jahren zugeordnet wird.",
+          "Weil die Maschine erst nach 10 Jahren bezahlt werden muss.",
+          "Weil Maschinen keinen Wert verlieren.",
+          "Weil das Finanzamt Maschinen nicht als Aufwand anerkennt.",
+        ],
+        correct: 0,
+        explain: "Die Maschine trägt jedes Jahr zum Erfolg bei. Würde alles im ersten Jahr gebucht, bräche der Gewinn dort stark ein.",
+      },
+      {
+        type: "number",
+        q: "Berechne die jährliche Abschreibung bei linearer Abschreibung.",
+        answer: 12000,
+        unit: "€",
+        tol: 0,
+        explain: "120.000 € : 10 Jahre = 12.000 € pro Jahr.",
       },
     ],
   },
@@ -32,25 +63,39 @@ export const MISSIONS = [
     title: "Der Weg zum Kunden",
     topic: "Lieferkette",
     situation:
-      "Ein E-Bike entsteht aus vielen Einzelteilen: Stahlwerk → Teilehersteller → SmartBike GmbH → Großhändler → Fahrradhändler → Kunde.",
+      "Ein E-Bike entsteht aus vielen Einzelteilen. Rohstoffe und Teile gehen durch mehrere Unternehmen, bis das Fahrrad beim Kunden ankommt.",
     tasks: [
       {
-        q: "Welcher BWL-Begriff beschreibt diese gesamte Kette (deutsch und englisch)?",
-        a: "Lieferkette / Supply Chain (verwandt: Wertschöpfungskette).",
-        mistake: "Den englischen Begriff vergessen.",
+        type: "multi",
+        q: "Welche Begriffe beschreiben diese gesamte Kette?",
+        options: ["Lieferkette", "Supply Chain", "Break-Even-Point", "Bilanz", "Inventur"],
+        correct: [0, 1],
+        explain: "Lieferkette heißt auf Englisch Supply Chain.",
       },
       {
-        q: "Erkläre den Begriff.",
-        a: "Alle Unternehmen und Schritte, die nötig sind, damit aus Rohstoffen ein fertiges Produkt beim Kunden ankommt – mit Material-, Informations- und Geldfluss.",
+        type: "choice",
+        q: "Was ist eine Lieferkette?",
+        options: [
+          "Alle Unternehmen und Schritte, die nötig sind, damit aus Rohstoffen ein fertiges Produkt beim Kunden ankommt.",
+          "Nur der Transport vom Händler zum Kunden.",
+          "Die Lagerhaltung eines einzelnen Unternehmens.",
+          "Die Rangfolge der Vorgesetzten in einem Betrieb.",
+        ],
+        correct: 0,
+        explain: "Dazu gehören Material-, Informations- und Geldfluss vom Rohstoff bis zum Kunden.",
       },
       {
-        q: "Beschreibe die Kette mit Pfeilen und mehreren möglichen Zulieferern.",
-        a: "Stahlwerk → Rahmenhersteller → SmartBike; Akkuhersteller → SmartBike; Bremsenhersteller → SmartBike; SmartBike → Großhändler → Fahrradhändler → Kunde.",
-        mistake: "Das Stahlwerk liefert an die Teilehersteller, nicht direkt an SmartBike.",
+        type: "order",
+        q: "Bring die Glieder der Kette in die richtige Reihenfolge.",
+        items: ["Stahlwerk", "Teilehersteller", "SmartBike GmbH", "Großhändler", "Fahrradhändler", "Kunde"],
+        explain: "Stahlwerk → Teilehersteller → SmartBike GmbH → Großhändler → Fahrradhändler → Kunde. Das Stahlwerk liefert an die Teilehersteller, nicht direkt an SmartBike.",
       },
       {
-        q: "Nenne zwei mögliche Probleme, wenn ein Glied der Kette ausfällt.",
-        a: "Produktionsstopp bei allen folgenden Gliedern; Lieferverzögerungen; Umsatzausfall; höhere Kosten durch Ersatzlieferanten (zwei davon genügen).",
+        type: "multi",
+        q: "Welche Probleme entstehen, wenn ein Glied der Kette ausfällt?",
+        options: ["Produktionsstopp", "Lieferverzögerungen", "Umsatzausfall", "Die Fixkosten sinken automatisch", "Das Eigenkapital steigt"],
+        correct: [0, 1, 2],
+        explain: "Alle folgenden Glieder bekommen keine Ware mehr: Produktion steht, Lieferungen verzögern sich, Umsatz fällt weg.",
       },
     ],
   },
@@ -59,17 +104,41 @@ export const MISSIONS = [
     title: "Das Lager: FIFO und LIFO",
     topic: "Lagerentnahme",
     situation:
-      "Im Lager liegen Reifen. Im Januar werden 100 Reifen eingelagert, im Februar weitere 100 und im März weitere 100. Nun werden 100 Reifen entnommen. Aber welche?",
+      "Im Januar werden 100 Reifen eingelagert, im Februar weitere 100 und im März weitere 100. Nun werden 100 Reifen entnommen.",
     tasks: [
       {
-        q: "Was bedeuten FIFO und LIFO?",
-        a: "FIFO = First In, First Out: was zuerst eingelagert wurde, wird zuerst entnommen. LIFO = Last In, First Out: was zuletzt eingelagert wurde, wird zuerst entnommen.",
+        type: "match",
+        q: "Ordne die Verfahren der richtigen Bedeutung zu.",
+        pairs: [
+          ["FIFO", "Was zuerst eingelagert wurde, wird zuerst entnommen."],
+          ["LIFO", "Was zuletzt eingelagert wurde, wird zuerst entnommen."],
+        ],
+        explain: "FIFO = First In, First Out. LIFO = Last In, First Out.",
       },
-      { q: "Welche Reifen werden bei FIFO zuerst entnommen?", a: "Die Reifen aus dem Januar." },
-      { q: "Welche Reifen werden bei LIFO zuerst entnommen?", a: "Die Reifen aus dem März." },
       {
-        q: "Nenne je ein Beispiel aus dem Alltag für FIFO und LIFO.",
-        a: "FIFO: Lebensmittel im Kühlschrank – ältere zuerst verbrauchen. LIFO: Stapel Teller im Schrank – der oberste wird zuerst genommen.",
+        type: "choice",
+        q: "Welche Reifen werden bei FIFO zuerst entnommen?",
+        options: ["Januar", "Februar", "März"],
+        correct: 0,
+        keepOrder: true,
+        explain: "Die zuerst eingelagerten Reifen aus dem Januar.",
+      },
+      {
+        type: "choice",
+        q: "Welche Reifen werden bei LIFO zuerst entnommen?",
+        options: ["Januar", "Februar", "März"],
+        correct: 2,
+        keepOrder: true,
+        explain: "Die zuletzt eingelagerten Reifen aus dem März.",
+      },
+      {
+        type: "match",
+        q: "Ordne die Alltagsbeispiele zu.",
+        pairs: [
+          ["Lebensmittel im Kühlschrank – ältere zuerst essen", "FIFO"],
+          ["Stapel Teller im Schrank – oberster zuerst", "LIFO"],
+        ],
+        explain: "Kühlschrank: das Älteste zuerst (FIFO). Tellerstapel: der zuletzt draufgelegte zuerst (LIFO).",
       },
     ],
   },
@@ -77,22 +146,46 @@ export const MISSIONS = [
     id: 4,
     title: "Das Lager zählt",
     topic: "Inventur",
-    situation:
-      "Zum Jahresende werden sämtliche Fahrräder, Ersatzteile und Werkzeuge im Lager gezählt.",
+    situation: "Zum Jahresende werden sämtliche Fahrräder, Ersatzteile und Werkzeuge im Lager gezählt.",
     tasks: [
-      { q: "Wie heißt dieser Vorgang?", a: "Inventur." },
       {
-        q: "Erkläre den Begriff.",
-        a: "Mengen- und wertmäßige Erfassung aller Vermögensgegenstände und Schulden eines Unternehmens zu einem Stichtag.",
+        type: "choice",
+        q: "Wie heißt dieser Vorgang?",
+        options: ["Inventur", "Bilanz", "Abschreibung", "Liquidität"],
+        correct: 0,
+        explain: "Das Zählen und Bewerten aller Bestände heißt Inventur.",
       },
       {
-        q: "Warum führt ein Unternehmen eine solche Erfassung durch?",
-        a: "Sie ist gesetzlich vorgeschrieben (§ 240 HGB) und Grundlage für Inventar und Bilanz. Außerdem wird der Soll-Bestand der Buchhaltung mit dem Ist-Bestand abgeglichen, um Schwund, Diebstahl und Fehler zu erkennen.",
+        type: "choice",
+        q: "Was ist eine Inventur?",
+        options: [
+          "Mengen- und wertmäßige Erfassung aller Vermögensgegenstände und Schulden zu einem Stichtag.",
+          "Eine Aufstellung aller Einnahmen und Ausgaben eines Jahres.",
+          "Die Bestellung neuer Waren für das Lager.",
+          "Das Zählen nur der verkauften Fahrräder.",
+        ],
+        correct: 0,
+        explain: "Mengenmäßig (wie viel) und wertmäßig (wie viel Euro), zu einem festen Stichtag.",
       },
       {
-        q: "Nenne mindestens drei Dinge, die SmartBike dabei erfassen könnte.",
-        a: "Fertige Fahrräder, Ersatzteile (z. B. Reifen, Akkus), Werkzeuge, Rohmaterial.",
-        mistake: "Drei Fahrradtypen (E-Bike, Rennrad, Mountainbike) sind nur eine Kategorie.",
+        type: "multi",
+        q: "Warum führt ein Unternehmen eine Inventur durch?",
+        options: [
+          "Sie ist gesetzlich vorgeschrieben (§ 240 HGB).",
+          "Sie ist die Grundlage für die Bilanz.",
+          "Schwund, Diebstahl und Buchungsfehler werden erkannt.",
+          "Damit wird der Verkaufspreis festgelegt.",
+          "Damit werden neue Mitarbeiter eingestellt.",
+        ],
+        correct: [0, 1, 2],
+        explain: "Pflicht nach § 240 HGB, Grundlage für Inventar und Bilanz, Abgleich von Soll- und Ist-Bestand.",
+      },
+      {
+        type: "multi",
+        q: "Was erfasst SmartBike bei der Inventur?",
+        options: ["Fertige Fahrräder", "Ersatzteile wie Reifen und Akkus", "Werkzeuge", "Kundenbewertungen", "Werbeslogans"],
+        correct: [0, 1, 2],
+        explain: "Erfasst werden Vermögensgegenstände – keine Meinungen oder Ideen.",
       },
     ],
   },
@@ -100,21 +193,49 @@ export const MISSIONS = [
     id: 5,
     title: "Verkaufserfolg",
     topic: "Umsatz und Gewinn",
-    situation:
-      "SmartBike verkauft im Jahr Fahrräder für 4.000.000 €. Die Gesamtkosten betragen 3.300.000 €.",
+    situation: "SmartBike verkauft im Jahr Fahrräder für 4.000.000 €. Die Gesamtkosten betragen 3.300.000 €.",
     tasks: [
       {
-        q: "Erkläre die Begriffe Umsatz, Erlös, Kosten und Gewinn.",
-        a: "Umsatz: Wert aller verkauften Waren und Leistungen (Menge × Preis). Erlös: Einnahmen aus dem Verkauf, oft gleichbedeutend mit Umsatzerlös. Kosten: bewerteter Verbrauch von Gütern und Dienstleistungen für die Leistungserstellung. Gewinn: was nach Abzug der Kosten übrig bleibt.",
+        type: "match",
+        q: "Ordne die Begriffe der richtigen Erklärung zu.",
+        pairs: [
+          ["Umsatz", "Wert aller verkauften Waren (Menge × Preis)"],
+          ["Kosten", "Bewerteter Verbrauch von Gütern und Leistungen für die Produktion"],
+          ["Gewinn", "Was nach Abzug der Kosten übrig bleibt"],
+        ],
+        explain: "Erlös ist das, was aus dem Verkauf hereinkommt – meist gleichbedeutend mit Umsatzerlös.",
       },
-      { q: "Berechne den Gewinn.", a: "4.000.000 € − 3.300.000 € = 700.000 €." },
       {
-        q: "Sind Umsatz und Gewinn dasselbe? Begründe.",
-        a: "Nein. Umsatz ist alles, was durch Verkäufe hereinkommt. Gewinn ist erst der Rest nach Abzug der Kosten.",
+        type: "number",
+        q: "Berechne den Gewinn.",
+        answer: 700000,
+        unit: "€",
+        tol: 0,
+        explain: "4.000.000 € − 3.300.000 € = 700.000 €.",
       },
       {
-        q: "Formuliere einen Merksatz, der Umsatz und Gewinn unterscheidet.",
-        a: "Umsatz ist, was ein Unternehmen durch Verkäufe erzielt. Gewinn ist, was nach Abzug der Kosten übrig bleibt.",
+        type: "choice",
+        q: "Sind Umsatz und Gewinn dasselbe?",
+        options: [
+          "Nein. Gewinn ist der Umsatz minus die Kosten.",
+          "Ja, beide meinen die Einnahmen aus Verkäufen.",
+          "Nein. Der Gewinn ist immer größer als der Umsatz.",
+          "Ja, wenn keine Steuern anfallen.",
+        ],
+        correct: 0,
+        explain: "Umsatz ist alles, was durch Verkäufe hereinkommt. Gewinn ist erst der Rest nach Abzug der Kosten.",
+      },
+      {
+        type: "choice",
+        q: "Welcher Merksatz stimmt?",
+        options: [
+          "Umsatz ist, was durch Verkäufe hereinkommt. Gewinn ist, was nach Abzug der Kosten übrig bleibt.",
+          "Gewinn ist, was durch Verkäufe hereinkommt. Umsatz ist, was übrig bleibt.",
+          "Umsatz minus Gewinn ergibt die Kosten pro Stück.",
+          "Hoher Umsatz bedeutet immer hohen Gewinn.",
+        ],
+        correct: 0,
+        explain: "Hoher Umsatz heißt nicht automatisch hoher Gewinn – die Kosten entscheiden mit.",
       },
     ],
   },
@@ -122,21 +243,51 @@ export const MISSIONS = [
     id: 6,
     title: "Geld auf dem Konto",
     topic: "Liquidität",
-    situation:
-      "Die SmartBike GmbH muss morgen Lieferanten bezahlen. Auf dem Bankkonto befinden sich jedoch nur 8.000 €.",
+    situation: "SmartBike muss morgen Lieferanten bezahlen. Auf dem Bankkonto sind aber nur 8.000 €.",
     tasks: [
-      { q: "Welcher Begriff beschreibt die Fähigkeit, Zahlungen fristgerecht leisten zu können?", a: "Liquidität." },
       {
-        q: "Erkläre den Begriff.",
-        a: "Die Fähigkeit, fällige Rechnungen und Schulden jederzeit pünktlich und in voller Höhe zu bezahlen.",
+        type: "choice",
+        q: "Welcher Begriff beschreibt die Fähigkeit, Zahlungen fristgerecht zu leisten?",
+        options: ["Liquidität", "Rentabilität", "Produktivität", "Wirtschaftlichkeit"],
+        correct: 0,
+        explain: "Liquidität = Zahlungsfähigkeit.",
       },
       {
+        type: "choice",
+        q: "Was bedeutet Liquidität?",
+        options: [
+          "Fällige Rechnungen und Schulden jederzeit pünktlich und vollständig bezahlen zu können.",
+          "Möglichst viel Gewinn im Jahr zu machen.",
+          "Möglichst viele Fahrräder pro Mitarbeiter herzustellen.",
+          "Möglichst viel Eigenkapital zu besitzen.",
+        ],
+        correct: 0,
+        explain: "Es geht um verfügbares Geld zum richtigen Zeitpunkt, nicht um Gewinn.",
+      },
+      {
+        type: "choice",
         q: "Warum kann ein Unternehmen Gewinn machen und trotzdem Zahlungsprobleme haben?",
-        a: "Gewinn ist nicht gleich Geld auf dem Konto. Kunden haben zum Beispiel noch nicht bezahlt (Forderungen), oder das Geld steckt im Lager oder in Maschinen.",
+        options: [
+          "Kunden haben noch nicht bezahlt oder das Geld steckt im Lager und in Maschinen.",
+          "Gewinn wird immer sofort an die Mitarbeiter ausgezahlt.",
+          "Banken dürfen Gewinne ein Jahr lang sperren.",
+          "Das ist nicht möglich – wer Gewinn macht, hat immer Geld.",
+        ],
+        correct: 0,
+        explain: "Gewinn ist nicht gleich Geld auf dem Konto. Offene Forderungen und gebundenes Kapital fehlen in der Kasse.",
       },
       {
-        q: "Nenne zwei Maßnahmen, mit denen SmartBike seine Zahlungsfähigkeit verbessern könnte.",
-        a: "Kundenrechnungen schneller einfordern; Ausgaben verschieben oder einen kurzfristigen Kredit aufnehmen.",
+        type: "multi",
+        q: "Welche Maßnahmen verbessern die Zahlungsfähigkeit?",
+        options: [
+          "Kundenrechnungen schneller einfordern",
+          "Kurzfristigen Kredit aufnehmen",
+          "Ausgaben verschieben",
+          "Eine neue Maschine bar kaufen",
+          "Alle Lieferantenrechnungen sofort vorzeitig bezahlen",
+        ],
+        correct: [0, 1, 2],
+        explain: "Mehr Geld schneller herein oder Ausgaben später – beides hilft. Barkäufe verschärfen das Problem.",
       },
     ],
   },
@@ -144,18 +295,46 @@ export const MISSIONS = [
     id: 7,
     title: "Blick in die Bilanz",
     topic: "Bilanz",
-    situation:
-      "SmartBike besitzt Maschinen, Gebäude, Bankguthaben und Forderungen. Gleichzeitig bestehen Bankkredite.",
+    situation: "SmartBike besitzt Maschinen, Gebäude, Bankguthaben und Forderungen. Gleichzeitig bestehen Bankkredite.",
     tasks: [
       {
+        type: "choice",
         q: "Was zeigt eine Bilanz?",
-        a: "Vermögen und Kapital eines Unternehmens zu einem Stichtag: welches Vermögen es besitzt und wie dieses finanziert wurde.",
+        options: [
+          "Vermögen und Kapital eines Unternehmens zu einem Stichtag.",
+          "Alle Umsätze eines Jahres.",
+          "Die Kosten pro Fahrrad.",
+          "Die Zahl der Mitarbeitenden.",
+        ],
+        correct: 0,
+        explain: "Welches Vermögen da ist und wie es finanziert wurde – an einem Stichtag.",
       },
-      { q: "Welche Seite zeigt das Vermögen?", a: "Die Aktivseite." },
-      { q: "Welche Seite zeigt die Finanzierung bzw. das Kapital?", a: "Die Passivseite." },
       {
-        q: "Ordne Maschinen, Bankguthaben, Bankkredite und Eigenkapital den passenden Bereichen zu.",
-        a: "Maschinen → Aktiva, Anlagevermögen. Bankguthaben → Aktiva, Umlaufvermögen. Bankkredite → Passiva, Fremdkapital. Eigenkapital → Passiva, Eigenkapital.",
+        type: "choice",
+        q: "Welche Seite zeigt das Vermögen?",
+        options: ["Aktivseite", "Passivseite"],
+        correct: 0,
+        keepOrder: true,
+        explain: "Aktiva = Vermögen (Mittelverwendung).",
+      },
+      {
+        type: "choice",
+        q: "Welche Seite zeigt die Finanzierung bzw. das Kapital?",
+        options: ["Aktivseite", "Passivseite"],
+        correct: 1,
+        keepOrder: true,
+        explain: "Passiva = Kapital (Mittelherkunft).",
+      },
+      {
+        type: "match",
+        q: "Ordne die Posten zu.",
+        pairs: [
+          ["Maschinen", "Aktiva – Anlagevermögen"],
+          ["Bankguthaben", "Aktiva – Umlaufvermögen"],
+          ["Bankkredite", "Passiva – Fremdkapital"],
+          ["Einlage der Eigentümer", "Passiva – Eigenkapital"],
+        ],
+        explain: "Anlagevermögen bleibt lange im Betrieb, Umlaufvermögen ändert sich ständig.",
       },
     ],
   },
@@ -163,22 +342,49 @@ export const MISSIONS = [
     id: 8,
     title: "Finanzierung",
     topic: "Eigen- und Fremdkapital",
-    situation:
-      "Die Eigentümer investieren 300.000 €. Zusätzlich nimmt SmartBike einen Kredit über 700.000 € auf.",
+    situation: "Die Eigentümer investieren 300.000 €. Zusätzlich nimmt SmartBike einen Kredit über 700.000 € auf.",
     tasks: [
       {
+        type: "choice",
         q: "Was ist Eigenkapital?",
-        a: "Kapital, das die Eigentümer selbst ins Unternehmen einbringen, plus einbehaltene Gewinne.",
-        mistake: "Nur „mein eigenes Geld“ ist zu ungenau.",
+        options: [
+          "Kapital, das die Eigentümer selbst einbringen, plus einbehaltene Gewinne.",
+          "Geld, das die Bank dem Unternehmen leiht.",
+          "Das Gehalt der Geschäftsführung.",
+          "Geld, das Kunden noch bezahlen müssen.",
+        ],
+        correct: 0,
+        explain: "Eigenkapital gehört den Eigentümern und muss nicht zurückgezahlt werden.",
       },
       {
+        type: "choice",
         q: "Was ist Fremdkapital?",
-        a: "Kapital von außen, das zurückgezahlt werden muss, z. B. Kredite, Anleihen, Lieferantenschulden.",
+        options: [
+          "Kapital von außen, das zurückgezahlt werden muss, z. B. Kredite.",
+          "Kapital, das die Eigentümer einbringen.",
+          "Gewinne aus dem Ausland.",
+          "Geld, das das Unternehmen anderen geliehen hat.",
+        ],
+        correct: 0,
+        explain: "Kredite, Anleihen und Lieferantenschulden sind Fremdkapital.",
       },
-      { q: "Ordne die beiden Beträge zu.", a: "300.000 € = Eigenkapital, 700.000 € = Fremdkapital." },
       {
-        q: "Nenne einen Vorteil und einen Nachteil von Fremdkapital.",
-        a: "Vorteil: Investitionen und schnelleres Wachstum möglich, ohne dass neue Eigentümer mitreden. Nachteil: Zinsen und Tilgung müssen bezahlt werden, auch in schlechten Jahren.",
+        type: "match",
+        q: "Ordne die Beträge zu.",
+        pairs: [
+          ["300.000 € von den Eigentümern", "Eigenkapital"],
+          ["700.000 € Kredit", "Fremdkapital"],
+        ],
+        explain: "Eigene Einlage = Eigenkapital, Kredit = Fremdkapital.",
+      },
+      {
+        type: "match",
+        q: "Vorteil oder Nachteil von Fremdkapital?",
+        pairs: [
+          ["Investitionen sind möglich, ohne eigenes Geld einzusetzen", "Vorteil"],
+          ["Zinsen und Tilgung müssen auch in schlechten Jahren gezahlt werden", "Nachteil"],
+        ],
+        explain: "Fremdkapital ermöglicht Wachstum, kostet aber Zinsen und muss zurückgezahlt werden.",
       },
     ],
   },
@@ -187,17 +393,43 @@ export const MISSIONS = [
     title: "Lohnt sich die Produktion?",
     topic: "Deckungsbeitrag",
     situation:
-      "Ein Fahrrad wird für 2.400 € verkauft. Die variablen Kosten betragen 1.600 €. Die Fixkosten betragen 320.000 € pro Jahr.",
+      "Ein Fahrrad wird für 2.400 € verkauft. Die variablen Kosten betragen 1.600 € pro Stück. Die Fixkosten betragen 320.000 € pro Jahr.",
     tasks: [
       {
-        q: "Erkläre, was der Deckungsbeitrag aussagt.",
-        a: "Deckungsbeitrag = Verkaufspreis − variable Kosten. Er zeigt, wie viel jedes verkaufte Stück zur Deckung der Fixkosten beiträgt. Sind die Fixkosten gedeckt, ist der Rest Gewinn.",
+        type: "choice",
+        q: "Was ist der Deckungsbeitrag?",
+        options: [
+          "Verkaufspreis minus variable Kosten – der Betrag, den jedes Stück zur Deckung der Fixkosten beiträgt.",
+          "Verkaufspreis minus Fixkosten.",
+          "Umsatz minus Gesamtkosten.",
+          "Fixkosten geteilt durch die Stückzahl.",
+        ],
+        correct: 0,
+        explain: "Sind die Fixkosten gedeckt, ist jeder weitere Deckungsbeitrag Gewinn.",
       },
-      { q: "Berechne den Deckungsbeitrag je Fahrrad.", a: "2.400 € − 1.600 € = 800 €." },
-      { q: "Berechne den Break-Even-Point in Stück.", a: "320.000 € : 800 € = 400 Fahrräder." },
       {
-        q: "Was bedeutet das Ergebnis für SmartBike?",
-        a: "Bei 400 Fahrrädern sind alle Kosten gedeckt, der Gewinn ist 0. Ab dem 401. Fahrrad macht SmartBike Gewinn.",
+        type: "number",
+        q: "Berechne den Deckungsbeitrag je Fahrrad.",
+        answer: 800,
+        unit: "€",
+        tol: 0,
+        explain: "2.400 € − 1.600 € = 800 €.",
+      },
+      {
+        type: "number",
+        q: "Berechne den Break-Even-Point.",
+        answer: 400,
+        unit: "Stück",
+        tol: 0,
+        explain: "320.000 € : 800 € = 400 Fahrräder.",
+      },
+      {
+        type: "number",
+        q: "Ab dem wievielten Fahrrad macht SmartBike Gewinn?",
+        answer: 401,
+        unit: "",
+        tol: 0,
+        explain: "Bei 400 Fahrrädern ist der Gewinn genau 0. Ab dem 401. Fahrrad entsteht Gewinn.",
       },
     ],
   },
@@ -205,12 +437,11 @@ export const MISSIONS = [
     id: 10,
     title: "Das Unternehmen bewerten",
     topic: "Kennzahlen",
-    situation:
-      "SmartBike produziert 6.000 Fahrräder mit 30 Mitarbeitenden. Umsatzerlöse: 4.000.000 €. Kosten: 3.300.000 €. Gewinn: 420.000 €. Eigenkapital: 2.100.000 €.",
+    situation: "Nutze die Tabelle. Runde auf zwei Nachkommastellen.",
     formulas: [
-      "Produktivität P = Produktionsmenge : Arbeitseinsatz (Stk. pro Mitarbeiter)",
-      "Wirtschaftlichkeit W = Umsatzerlöse : Kosten (ohne Einheit, über 1 = wirtschaftlich)",
-      "Eigenkapitalrentabilität REK = Gewinn : Eigenkapital × 100 (in %)",
+      "Produktivität = Produktionsmenge : Mitarbeiter",
+      "Wirtschaftlichkeit = Umsatzerlöse : Kosten",
+      "Eigenkapitalrentabilität = Gewinn : Eigenkapital × 100",
     ],
     table: {
       head: ["", "Eigenkapital", "Gewinn", "Umsatz", "Kosten", "Fahrräder", "Mitarbeiter"],
@@ -222,36 +453,64 @@ export const MISSIONS = [
     },
     tasks: [
       {
-        q: "Berechne die Arbeitsproduktivität für Jahr 1.",
-        a: "6.000 Fahrräder : 30 Mitarbeiter = 200 Stk. pro Mitarbeiter.",
-        mistake: "Einheit vergessen.",
-      },
-      { q: "Berechne die Wirtschaftlichkeit für Jahr 1.", a: "4.000.000 € : 3.300.000 € ≈ 1,21." },
-      { q: "Berechne die Eigenkapitalrentabilität für Jahr 1.", a: "420.000 € : 2.100.000 € × 100 = 20 %." },
-      {
-        q: "Erkläre in eigenen Worten, was jede der drei Kennzahlen aussagt.",
-        a: "Produktivität: wie viel mit dem Arbeitseinsatz hergestellt wird (Menge pro Mitarbeiter). Wirtschaftlichkeit: wie gut Umsatz und Kosten zueinander stehen, über 1 heißt wirtschaftlich. REK: wie viel Prozent Gewinn das eingesetzte Eigenkapital bringt; lohnt sich, wenn sie höher ist als andere Anlagen.",
+        type: "number",
+        q: "Berechne die Produktivität für Jahr 1.",
+        answer: 200,
+        unit: "Stk. pro Mitarbeiter",
+        tol: 0,
+        explain: "6.000 : 30 = 200 Stk. pro Mitarbeiter.",
       },
       {
-        q: "Berechne alle drei Kennzahlen für Jahr 2 und 3 und beurteile die Entwicklung.",
-        a: "Jahr 2: P = 210 Stk./MA, W ≈ 1,31, REK ≈ 20,95 %. Jahr 3: P ≈ 182,86 Stk./MA, W ≈ 1,23, REK = 18,75 %. Jahr 2 ist das beste Jahr, alle Kennzahlen steigen. In Jahr 3 sinken alle drei: 5 zusätzliche Mitarbeiter senken die Produktivität, die Kosten steigen stärker als der Umsatz, und durch mehr Eigenkapital sinkt die Rendite. SmartBike arbeitet aber weiter wirtschaftlich (W > 1).",
-        mistake: "REK Jahr 2 auf 20,9 % statt 20,95 % gerundet.",
+        type: "number",
+        q: "Berechne die Wirtschaftlichkeit für Jahr 1.",
+        answer: 1.21,
+        unit: "",
+        tol: 0.005,
+        explain: "4.000.000 € : 3.300.000 € ≈ 1,21.",
+      },
+      {
+        type: "number",
+        q: "Berechne die Eigenkapitalrentabilität für Jahr 1.",
+        answer: 20,
+        unit: "%",
+        tol: 0.005,
+        explain: "420.000 € : 2.100.000 € × 100 = 20 %.",
+      },
+      {
+        type: "match",
+        q: "Was sagt welche Kennzahl aus?",
+        pairs: [
+          ["Produktivität", "Wie viel Menge pro Arbeitseinsatz hergestellt wird"],
+          ["Wirtschaftlichkeit", "Wie Umsatz und Kosten zueinander stehen"],
+          ["Eigenkapitalrentabilität", "Wie viel Prozent Gewinn das Eigenkapital bringt"],
+        ],
+        explain: "Produktivität ist ein Mengenverhältnis, Wirtschaftlichkeit ein Wertverhältnis (über 1 = wirtschaftlich), REK eine Verzinsung in Prozent.",
+      },
+      {
+        type: "numbers",
+        q: "Berechne die Kennzahlen für Jahr 2 und Jahr 3.",
+        fields: [
+          { label: "Produktivität Jahr 2", answer: 210, unit: "Stk./MA", tol: 0.005 },
+          { label: "Produktivität Jahr 3", answer: 182.86, unit: "Stk./MA", tol: 0.005 },
+          { label: "Wirtschaftlichkeit Jahr 2", answer: 1.31, unit: "", tol: 0.005 },
+          { label: "Wirtschaftlichkeit Jahr 3", answer: 1.23, unit: "", tol: 0.005 },
+          { label: "Eigenkapitalrentabilität Jahr 2", answer: 20.95, unit: "%", tol: 0.005 },
+          { label: "Eigenkapitalrentabilität Jahr 3", answer: 18.75, unit: "%", tol: 0.005 },
+        ],
+        explain: "Jahr 2: 210 / 1,31 / 20,95 %. Jahr 3: 182,86 / 1,23 / 18,75 %.",
+      },
+      {
+        type: "choice",
+        q: "Wie entwickelt sich SmartBike?",
+        options: [
+          "Jahr 2 ist am besten. In Jahr 3 sinken alle drei Kennzahlen, SmartBike arbeitet aber weiter wirtschaftlich.",
+          "Jahr 3 ist am besten, weil dort der höchste Gewinn erzielt wird.",
+          "Alle drei Jahre sind gleich gut, weil immer Gewinn entsteht.",
+          "In Jahr 3 arbeitet SmartBike unwirtschaftlich, weil die Wirtschaftlichkeit unter 1 fällt.",
+        ],
+        correct: 0,
+        explain: "Mehr Mitarbeiter senken die Produktivität, Kosten steigen stärker als der Umsatz, mehr Eigenkapital senkt die Rendite. W bleibt über 1.",
       },
     ],
-    note: "Die Zahlen der Aufgabe sind nicht ganz stimmig: Umsatz minus Kosten ergibt 700.000 €, angegeben ist ein Gewinn von 420.000 €. Für die Kennzahlen gilt der angegebene Gewinn.",
   },
 ];
-
-// Kompletter Lernstoff als Text – Wissensbasis für den Tutor-Chat.
-export function knowledgeText() {
-  return MISSIONS.map((m) => {
-    const parts = [`Mission ${m.id} – ${m.title} (${m.topic})`, `Situation: ${m.situation}`];
-    if (m.formulas) parts.push("Formeln: " + m.formulas.join("; "));
-    if (m.table) parts.push("Tabelle: " + m.table.rows.map((r) => r.join(" | ")).join(" / ") + ` (Spalten: ${m.table.head.slice(1).join(", ")})`);
-    m.tasks.forEach((t, i) => {
-      parts.push(`${m.id}.${i + 1} ${t.q}\nLösung: ${t.a}${t.mistake ? `\nTypischer Fehler: ${t.mistake}` : ""}`);
-    });
-    if (m.note) parts.push("Hinweis: " + m.note);
-    return parts.join("\n");
-  }).join("\n\n");
-}
