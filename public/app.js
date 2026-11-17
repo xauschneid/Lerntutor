@@ -61,7 +61,7 @@ function taskInput(task, key, sh) {
     case "choice":
     case "multi": {
       const t = task.type === "choice" ? "radio" : "checkbox";
-      return `${task.type === "multi" ? `<p class="hint">Mehrere Antworten können richtig sein.</p>` : ""}
+      return `${task.type === "multi" ? `<p class="hint">${esc(task.hint || "Mehrere Antworten können richtig sein.")}</p>` : ""}
         <div class="opts">${sh.map((oi) => `
           <label class="opt"><input type="${t}" name="${name}" value="${oi}"><span>${esc(task.options[oi])}</span></label>`).join("")}
         </div>`;
@@ -97,6 +97,10 @@ function grade(task, key, form) {
     }
     case "multi": {
       const sel = [...form.querySelectorAll(`input[name="${name}"]:checked`)].map((x) => Number(x.value)).sort();
+      if (task.groups) {
+        const allowed = new Set(task.groups.flat());
+        return sel.every((v) => allowed.has(v)) && task.groups.every((g) => g.some((v) => sel.includes(v)));
+      }
       const want = [...task.correct].sort();
       return sel.length === want.length && sel.every((v, i) => v === want[i]);
     }

@@ -200,3 +200,7 @@ input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); ou
 }
 
 .linkbtn { background: none; border: 0; color: var(--muted); font: inherit; font-size: 15px; text-decoration: underline; cursor: pointer; min-height: 44px; padding: 0 4px; }
+
+.top { z-index: 20; }
+main { position: relative; z-index: 0; }
+.task, .verdict { scroll-margin-top: 80px; }

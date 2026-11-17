@@ -2,7 +2,7 @@
 //
 // Aufgabentypen:
 //   choice  – genau eine Antwort richtig (options, correct: Index)
-//   multi   – mehrere richtig (options, correct: [Indizes])
+//   multi   – mehrere richtig (options, correct: [Indizes]) oder groups: [[…],[…]] = aus jeder Gruppe mind. eine
 //   number  – Zahl eingeben (answer, unit, tol = erlaubte Abweichung)
 //   numbers – mehrere Zahlen (fields: [{label, answer, unit, tol}])
 //   match   – zuordnen (pairs: [[links, rechts]]), rechte Seite wird gemischt angeboten
@@ -67,9 +67,11 @@ export const MISSIONS = [
     tasks: [
       {
         type: "multi",
-        q: "Welche Begriffe beschreiben diese gesamte Kette?",
+        q: "Welcher deutsche und welcher englische Begriff beschreiben diese gesamte Kette?",
+        hint: "Kreuze einen deutschen und einen englischen Begriff an.",
         options: ["Wertschöpfungskette", "Lieferkette", "Supply Chain", "Break-Even-Point", "Bilanz", "Inventur"],
-        correct: [0, 1, 2],
+        // je Gruppe mindestens eine Antwort, nichts außerhalb der Gruppen
+        groups: [[0, 1], [2]],
         explain: "Deutsch: Wertschöpfungskette oder Lieferkette. Englisch: Supply Chain (genau genommen ist die Wertschöpfungskette die Value Chain, im Unterricht werden die Begriffe aber oft gleich verwendet).",
       },
       {
