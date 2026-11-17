@@ -61,7 +61,7 @@ function taskInput(task, key, sh) {
     case "choice":
     case "multi": {
       const t = task.type === "choice" ? "radio" : "checkbox";
-      return `${task.type === "multi" ? `<p class="hint">${esc(task.hint || "Mehrere Antworten können richtig sein.")}</p>` : ""}
+      return `${task.type === "multi" ? `<p class="hint">${esc(task.hint || "Kreuze alle richtigen Antworten an.")}</p>` : ""}
         <div class="opts">${sh.map((oi) => `
           <label class="opt"><input type="${t}" name="${name}" value="${oi}"><span>${esc(task.options[oi])}</span></label>`).join("")}
         </div>`;
@@ -233,7 +233,7 @@ function viewList() {
         const status = s.passed ? `<span class="m-count done">Bestanden</span>` : s.attempts ? `<span class="m-count fail">${s.attempts}× durchgefallen</span>` : `<span class="m-count">Offen</span>`;
         return `<li><a href="#/m/${m.id}">
           <span class="m-no">${m.id}</span>
-          <span><span class="m-title">${esc(m.title)}</span><span class="m-topic">${esc(m.topic)} · ${m.tasks.length} Aufgaben</span></span>
+          <span><span class="m-title">${esc(m.title)}</span><span class="m-topic">${m.tasks.length} Aufgaben</span></span>
           ${status}
         </a></li>`;
       }).join("")}
@@ -263,7 +263,7 @@ function viewMission(id) {
     <a href="#/" class="back">← Alle Missionen</a>
     <div class="mhead">
       <span class="big">${m.id}</span>
-      <div><h1>${esc(m.title)}</h1><div class="m-topic">${esc(m.topic)}${s.passed ? " · bestanden" : s.attempts ? ` · ${s.attempts}× durchgefallen` : ""}</div></div>
+      <div><h1>${esc(m.title)}</h1><div class="m-topic">${m.tasks.length} Aufgaben${s.passed ? " · bestanden" : s.attempts ? ` · ${s.attempts}× durchgefallen` : ""}</div></div>
     </div>
     ${missionIntro(m)}
     <div id="testbox"></div>

@@ -26,7 +26,7 @@ export const MISSIONS = [
       },
       {
         type: "choice",
-        q: "Was bedeutet Abschreibung?",
+        q: "Was bedeutet dieser Begriff?",
         options: [
           "Die Anschaffungskosten werden auf die Nutzungsdauer verteilt und jedes Jahr anteilig als Aufwand gebucht.",
           "Der Kaufpreis wird sofort komplett als Aufwand gebucht.",
@@ -50,7 +50,7 @@ export const MISSIONS = [
       },
       {
         type: "number",
-        q: "Berechne die jährliche Abschreibung bei linearer Abschreibung.",
+        q: "Berechne den Betrag pro Jahr, wenn die Kosten gleichmäßig (linear) auf die Nutzungsdauer verteilt werden.",
         answer: 12000,
         unit: "€",
         tol: 0,
@@ -159,7 +159,7 @@ export const MISSIONS = [
       },
       {
         type: "choice",
-        q: "Was ist eine Inventur?",
+        q: "Was bedeutet dieser Begriff?",
         options: [
           "Mengen- und wertmäßige Erfassung aller Vermögensgegenstände und Schulden zu einem Stichtag.",
           "Eine Aufstellung aller Einnahmen und Ausgaben eines Jahres.",
@@ -171,7 +171,7 @@ export const MISSIONS = [
       },
       {
         type: "multi",
-        q: "Warum führt ein Unternehmen eine Inventur durch?",
+        q: "Warum führt ein Unternehmen diesen Vorgang durch?",
         options: [
           "Sie ist gesetzlich vorgeschrieben (§ 240 HGB).",
           "Sie ist die Grundlage für die Bilanz.",
@@ -184,7 +184,7 @@ export const MISSIONS = [
       },
       {
         type: "multi",
-        q: "Was erfasst SmartBike bei der Inventur?",
+        q: "Was erfasst SmartBike dabei?",
         options: ["Fertige Fahrräder", "Ersatzteile wie Reifen und Akkus", "Werkzeuge", "Kundenbewertungen", "Werbeslogans"],
         correct: [0, 1, 2],
         explain: "Erfasst werden Vermögensgegenstände – keine Meinungen oder Ideen.",
@@ -256,7 +256,7 @@ export const MISSIONS = [
       },
       {
         type: "choice",
-        q: "Was bedeutet Liquidität?",
+        q: "Was bedeutet dieser Begriff?",
         options: [
           "Fällige Rechnungen und Schulden jederzeit pünktlich und vollständig bezahlen zu können.",
           "Möglichst viel Gewinn im Jahr zu machen.",
