@@ -68,13 +68,13 @@ export const MISSIONS = [
       {
         type: "multi",
         q: "Welche Begriffe beschreiben diese gesamte Kette?",
-        options: ["Lieferkette", "Supply Chain", "Break-Even-Point", "Bilanz", "Inventur"],
-        correct: [0, 1],
-        explain: "Lieferkette heißt auf Englisch Supply Chain.",
+        options: ["Wertschöpfungskette", "Lieferkette", "Supply Chain", "Break-Even-Point", "Bilanz", "Inventur"],
+        correct: [0, 1, 2],
+        explain: "Deutsch: Wertschöpfungskette oder Lieferkette. Englisch: Supply Chain (genau genommen ist die Wertschöpfungskette die Value Chain, im Unterricht werden die Begriffe aber oft gleich verwendet).",
       },
       {
         type: "choice",
-        q: "Was ist eine Lieferkette?",
+        q: "Was beschreibt dieser Begriff?",
         options: [
           "Alle Unternehmen und Schritte, die nötig sind, damit aus Rohstoffen ein fertiges Produkt beim Kunden ankommt.",
           "Nur der Transport vom Händler zum Kunden.",

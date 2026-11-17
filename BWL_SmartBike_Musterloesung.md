@@ -15,7 +15,7 @@ Situation: CNC-Maschine für 120.000 €, Nutzungsdauer 10 Jahre, Gewinn soll ni
 ## Mission 2 – Der Weg zum Kunden (Lieferkette)
 Kette: Stahlwerk → Teilehersteller → SmartBike GmbH → Großhändler → Fahrradhändler → Kunde.
 
-1. Begriff: **Lieferkette / Supply Chain** (verwandt: Wertschöpfungskette). Typischer Fehler: englischen Begriff vergessen.
+1. Begriff: **Wertschöpfungskette bzw. Lieferkette / Supply Chain**. Typischer Fehler: englischen Begriff vergessen.
 2. Erklärung: Alle Unternehmen und Schritte, die nötig sind, damit aus Rohstoffen ein fertiges Produkt beim Kunden ankommt – inklusive Material-, Informations- und Geldfluss.
 3. Pfeildiagramm mit mehreren Zulieferern (Stahlwerk liefert an die Teilehersteller, nicht direkt an SmartBike):
    - Stahlwerk → Rahmenhersteller → SmartBike
